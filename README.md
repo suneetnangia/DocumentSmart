@@ -100,7 +100,14 @@ $filter=lonlats/any(lonlats: geo.distance(lonlats, geography'POINT( 0.35508 51.4
 
 This will return documents (from the index) which have locations within the 10 kilometers of the provided lon-lat/coordinates. 
 
+#### Running Postman Collection
+Please change the following in the requests as per your environment-
+- All requests- api-key to your Azure Search Key, in Http Header section.
+- CreateDataSource- connectionString to your storage account connection string (this is where the documents are stored for indexing).
+- CreateSkillSet- 'uri' in 'Microsoft.Skills.Custom.WebApiSkill' to your Azure Function.
+
 #### Further Possibilities-
 You can use this design to enhance you indexed documents in any way you like, some examples which springs to mind are-
 1. Content Moderation
 2. Content Sentiment Analysis
+
