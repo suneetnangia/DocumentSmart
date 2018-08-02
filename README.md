@@ -102,7 +102,7 @@ This will return documents (from the index) which have locations within the 10 k
 
 #### Running Postman Collection
 Please change the following in the requests as per your environment-
-- All requests- api-key to your Azure Search Key, in Http Header section.
+- All Requests- api-key to your Azure Search Key, in Http Header section.
 - CreateDataSource- connectionString to your storage account connection string (this is where the documents are stored for indexing).
 - CreateSkillSet- 'uri' in 'Microsoft.Skills.Custom.WebApiSkill' to your Azure Function.
 
