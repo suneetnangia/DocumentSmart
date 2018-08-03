@@ -1,0 +1,10 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+    "AzureWebJobsStorage": "",
+    "AzureWebJobsDashboard": "",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "MapServiceKey": "jeFFE4K3woBNk5tVGfhjkUl7p5btK4zsOpdwB3YzOaI",
+    "MapServiceBaseUrl": "https://atlas.microsoft.com/"
+  }
+}
