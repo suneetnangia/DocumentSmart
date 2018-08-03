@@ -106,6 +106,9 @@ Please change the following in the requests as per your environment-
 - CreateDataSource- connectionString to your storage account connection string (this is where the documents are stored for indexing).
 - CreateSkillSet- 'uri' in 'Microsoft.Skills.Custom.WebApiSkill' to your Azure Function.
 
+#### Gotchas
+- Please [enable SSL 1.0](https://docs.microsoft.com/en-us/azure/search/cognitive-search-create-custom-skill-example#update-ssl-settings) support for the custom skill implemented by Azure Function.
+
 #### Further Possibilities-
 You can use this design to enhance you indexed documents in any way you like, some examples which springs to mind are-
 1. Content Moderation
