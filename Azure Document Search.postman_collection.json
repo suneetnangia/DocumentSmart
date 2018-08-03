@@ -1,0 +1,243 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Azure Document Search",
+		"_postman_id": "7a49aee1-7882-34c0-4de4-71931914c001",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateIndex",
+			"request": {
+				"url": {
+					"raw": "https://msftltc.search.windows.net/indexes?api-version=2017-11-11-Preview",
+					"protocol": "https",
+					"host": [
+						"msftltc",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2017-11-11-Preview",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "api-key",
+						"value": "53360D4880ED7E20C27B571237659882",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ltcdocs\",  \r\n    \"fields\": [\r\n        {\"name\": \"content\", \"type\": \"Edm.String\", \"key\": false, \"searchable\": true, \"retrievable\": false, \"filterable\": false, \"sortable\": false, \"facetable\": false},\r\n        {\"name\": \"metadata_storage_path\", \"type\": \"Edm.String\", \"key\": true, \"searchable\": true, \"retrievable\": true },\r\n        {\"name\": \"locations\", \"type\": \"Collection(Edm.String)\", \"key\": false, \"searchable\": true, \"retrievable\": true },\r\n        {\"name\": \"lonlats\", \"type\": \"Collection(Edm.GeographyPoint)\", \"key\": false, \"searchable\": false, \"retrievable\": true }\r\n    ]\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreateDataSource",
+			"request": {
+				"url": {
+					"raw": "https://msftltc.search.windows.net/datasources?api-version=2017-11-11-preview",
+					"protocol": "https",
+					"host": [
+						"msftltc",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"datasources"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2017-11-11-preview",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "api-key",
+						"value": "53360D4880ED7E20C27B571237659882",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"name\" : \"ltcblobstore\",\r\n    \"type\" : \"azureblob\",\r\n    \"credentials\" : { \"connectionString\" : \"DefaultEndpointsProtocol=https;AccountName=ltcmssa01poc;AccountKey=z8KnUQ6UK5vy3V3Ye8iVs6zso789y6rCJhdIZrel0p0DKrhFzolrhVVKItou0wKmVmdKf6lAoa5ArurEF+J+xw==;EndpointSuffix=core.windows.net\" },  \r\n    \"container\" : { \"name\" : \"trial\" }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreateIndexer",
+			"request": {
+				"url": {
+					"raw": "https://msftltc.search.windows.net/indexers/cognitiveskillsindexer?api-version=2017-11-11-preview",
+					"protocol": "https",
+					"host": [
+						"msftltc",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexers",
+						"cognitiveskillsindexer"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2017-11-11-preview",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "api-key",
+						"value": "53360D4880ED7E20C27B571237659882",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"name\" : \"cognitiveskillsindexer\",  \r\n    \"description\" : \"Uses builtin cognitive skills and the custom ones.\",  \r\n    \"dataSourceName\" : \"ltcblobstore\",\r\n    \"targetIndexName\" : \"ltcdocs\",  \r\n    \"skillsetName\" : \"smartskillset\",\r\n    \"parameters\" : { \"configuration\" : { \"imageAction\" : \"generateNormalizedImages\", \"dataToExtract\" : \"contentAndMetadata\" }},\r\n    \"fieldMappings\" : [ { \"sourceFieldName\" : \"metadata_storage_path\", \"targetFieldName\" : \"metadata_storage_path\" , \"mappingFunction\" :{ \"name\" : \"base64Encode\" } } ],\r\n    \"outputFieldMappings\": [ {\"sourceFieldName\": \"/document/locations\", \"targetFieldName\":\"locations\"}, {\"sourceFieldName\": \"/document/lat-lon/*\", \"targetFieldName\":\"lonlats\"}\r\n    ]\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreateSkillSet",
+			"request": {
+				"url": {
+					"raw": "https://msftltc.search.windows.net/skillsets/smartskillset?api-version=2017-11-11-preview",
+					"protocol": "https",
+					"host": [
+						"msftltc",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"skillsets",
+						"smartskillset"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2017-11-11-preview",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "api-key",
+						"value": "53360D4880ED7E20C27B571237659882",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\" : \"smartskillset\",\r\n  \"description\": \"Document analysis skill set.\",\r\n  \"skills\":\r\n  [\r\n  \t{\r\n        \"@odata.type\": \"#Microsoft.Skills.Custom.WebApiSkill\",\r\n        \"description\": \"A custom Geo Enhancer skill to extract lon-lat from locations via Azure Maps services.\",\r\n        \"uri\": \"https://msftltc.azurewebsites.net/api/GeoEnricher?code=utjM3epxrRbLZGD0puIQiRb4GQUy5DkVzidcE8IJeZRAMbSVm6Xs3Q==\",\r\n        \"batchSize\":1,\r\n        \"context\": \"/document\",\r\n        \"inputs\": [\r\n          {\r\n            \"name\": \"locations\",\r\n            \"source\": \"/document/locations\"\r\n          }\r\n        ],\r\n        \"outputs\": [\r\n          {\r\n            \"name\": \"lon-lat\",\r\n            \"targetName\": \"lon-lat\"\r\n          }\r\n        ]\r\n      },\r\n    {\r\n      \"@odata.type\": \"#Microsoft.Skills.Text.NamedEntityRecognitionSkill\",\r\n      \"context\": \"/document\",\r\n      \"categories\": [ \"Location\" ],\r\n      \"defaultLanguageCode\": \"en\",\r\n      \"minimumPrecision\": 0.5,\r\n      \"inputs\": [\r\n        {\r\n          \"name\": \"text\",\r\n          \"source\": \"/document/merged_content\"\r\n        }\r\n      ],\r\n      \"outputs\": [\r\n        {\r\n          \"name\": \"locations\",\r\n          \"targetName\": \"locations\"\r\n        }\r\n      ]\r\n    },\r\n       {\r\n            \"@odata.type\": \"#Microsoft.Skills.Text.MergeSkill\",\r\n            \"description\": null,\r\n            \"context\": \"/document\",\r\n            \"inputs\": [\r\n                {\r\n                    \"name\": \"text\",\r\n                    \"source\": \"/document/content\"\r\n                },\r\n                {\r\n                    \"name\": \"itemsToInsert\",\r\n                    \"source\": \"/document/normalized_images/*/text\"\r\n                },\r\n                {\r\n                    \"name\": \"offsets\",\r\n                    \"source\": \"/document/normalized_images/*/contentOffset\"\r\n                }\r\n            ],\r\n            \"outputs\": [\r\n                {\r\n                    \"name\": \"mergedText\",\r\n                    \"targetName\": \"merged_content\"\r\n                }\r\n            ],\r\n            \"insertPreTag\": \" \",\r\n            \"insertPostTag\": \" \"\r\n        },\r\n\t{\r\n\t    \"description\": \"Extracts text (plain and structured) from image.\",\r\n\t    \"@odata.type\": \"#Microsoft.Skills.Vision.OcrSkill\",\r\n\t    \"context\": \"/document/normalized_images/*\",\r\n\t    \"defaultLanguageCode\": null,\r\n\t    \"detectOrientation\": true,\r\n\t    \"inputs\": [\r\n\t      {\r\n\t        \"name\": \"image\",\r\n\t        \"source\": \"/document/normalized_images/*\"\r\n\t      }\r\n\t    ],\r\n\t    \"outputs\": [\r\n\t      {\r\n\t        \"name\": \"text\",\r\n\t        \"targetName\": \"text\"\r\n\t      },\r\n\t      {\r\n\t        \"name\": \"layoutText\",\r\n\t        \"targetName\": \"layoutText\"\r\n\t      }\r\n\t    ]\r\n\t}\r\n  ]\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Document",
+			"request": {
+				"url": "",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Custom Skill Request",
+			"request": {
+				"url": {
+					"raw": "https://msftltc.azurewebsites.net/api/GeoEnricher?code=utjM3epxrRbLZGD0puIQiRb4GQUy5DkVzidcE8IJeZRAMbSVm6Xs3Q==",
+					"protocol": "https",
+					"host": [
+						"msftltc",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"GeoEnricher"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "utjM3epxrRbLZGD0puIQiRb4GQUy5DkVzidcE8IJeZRAMbSVm6Xs3Q==",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"values\":[{\"recordId\":\"11\",\"data\":{\"locations\":[\"Essex\",\"Thurrock\",\"Kent\"]}}]}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
