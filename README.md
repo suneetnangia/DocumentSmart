@@ -27,7 +27,7 @@ b.	Landmarks (e.g. The Shard)
 
 #### Code/Configuration-
 Solution consist of the following code/configuration artefacts-
-1. Azure Search Artefacts (REST API calls, Postman Project)-
+1. Azure Search Artefacts (REST API calls, Postman Project [here](./Azure%20Document%20Search.postman_collection.json)-
   - Data Source- a blob store where documents are kept for indexing.
   - Index- to store specific fields (locations, lon-lats etc.) for searching.
   - Indexer- to index the documents in the data source using the configured skillset (pipeline).
