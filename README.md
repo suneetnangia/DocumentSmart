@@ -21,7 +21,7 @@ b.	Landmarks (e.g. The Shard)
 
 #### Primary Technology Stack-
 1.	Azure Search
-2.	Azure Cognitive Services
+2.	Azure Cognitive Services (via Azure Search)
 3.	Azure Maps
 4.	Azure Functions
 
