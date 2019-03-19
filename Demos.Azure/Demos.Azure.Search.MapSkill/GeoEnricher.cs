@@ -5,6 +5,7 @@ namespace Demos.Azure.Search.MapSkill
     using System.IO;
     using System.Net.Http;
     using System.Threading.Tasks;
+    
 
     using Demos.Azure.Search.MapSkill.MapService;
     using Demos.Azure.Search.MapSkill.SearchSkillInterface;
