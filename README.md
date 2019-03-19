@@ -1,4 +1,5 @@
 # Document Smart
+[![Build Status](https://dev.azure.com/suneetnangia/Document%20Search/_apis/build/status/Document%20Search-CI?branchName=master)](https://dev.azure.com/suneetnangia/Document%20Search/_build/latest?definitionId=8&branchName=master)
 ## A Contextual Document Search Project
 
 This project exemplifies the benefit of using Azure Search and other cognitive services for documents search.
