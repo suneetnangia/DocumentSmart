@@ -1,6 +1,7 @@
 ﻿namespace Demos.Azure.Search.MapSkill.MapService
 {
     using Newtonsoft.Json;
+     
 
     public class GeoPoint
     {
