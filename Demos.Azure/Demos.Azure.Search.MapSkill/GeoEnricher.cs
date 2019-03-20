@@ -14,6 +14,7 @@ namespace Demos.Azure.Search.MapSkill
     using Microsoft.Azure.WebJobs.Extensions.Http;
     using Microsoft.Azure.WebJobs.Host;
     using Newtonsoft.Json;
+    
     using Microsoft.Extensions.Configuration;
 
     public static class GeoEnricher
